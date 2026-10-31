@@ -14,15 +14,31 @@ in a shell this agent can run.
 2. Draft the split as a table: title · plan section · scope · done when · blocked by.
    One issue per unit of work.
 3. **Stop and show the table to the human.** Publish nothing until they approve it.
-4. Ask the human what every issue here must carry (fields, labels, wording), unless it is
-   already written down in this session or in the repo.
+4. Use the issue shape below. Ask the human only for what it doesn't cover.
 5. Create each issue in dependency order, so blocked-by can cite real numbers:
 
    ```sh
-   gh issue create --title "<title>" --body-file <tmp.md>
+   gh issue create --title "<title>" --body-file <tmp.md> --label "plan:<plan>"
    ```
 
 6. Record every issue URL from gh's output (not from memory) and reply with the list.
+
+## Issue shape
+
+Every issue carries this, set by the human on 2026-10-31 (plan morning-digest):
+
+- **Label:** `plan:<plan>`, where `<plan>` is the `plan:` value in `plan.md`'s frontmatter
+  (e.g. `plan:morning-digest`). Create the label first if it doesn't exist. Reviewers sort by it.
+- **Body**, in this order. The first line is exactly `Source: plan.md § <n>`, where `<n>` is the
+  plan's section as headed (`1`, `2a`, …):
+
+  ```md
+  Source: plan.md § <n>
+
+  Scope: <what this issue changes, and what it must not touch>
+  Done when: <the plan's "Done when" for this part, checkable>
+  Blocked by: <#n, or "none"; say if it blocks only the start or only "Done when">
+  ```
 
 Closing one, with the closing comment from AGENTS.md:
 
